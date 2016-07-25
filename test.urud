@@ -3,5 +3,12 @@ fun foofun(int a, int b)
 	let foovar = barfun(a)
 	foovar * b;
 
+fun *a[Number] average(list<*a> numbers)
+	sum(numbers) / length(numbers);
+
 let foo = 3 - 2 * (1 + 1) / 4 + 6
 let bar = foofun(foo, -4)
+
+let foostring = 'Hello world!'
+let barstring = '  hi?'
+let quxstring = '\'recursion\''

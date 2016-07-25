@@ -7,11 +7,13 @@ start = {definition}* $;
 @name
 identifier = /(?!\d)\w+/;
 
+type = identifier '<' type {',' type}* '>' | type '[' identifier {',' identifier} ']' | '*' identifier | identifier;
+
 literal = integer_literal | string_literal;
 integer_literal = /[-+]?[\d]+/;
-string_literal = "'" /([^']|\.)*/ "'";
+string_literal = "'" /([^'\\]|\\.)*/ "'";
 
-function_call = atom '(' {expression {',' expression}*} ')';
+function_call = atom '(' [expression {',' expression}*] ')';
 
 addsub_operator = muldiv_operator {('+' | '-') muldiv_operator};
 muldiv_operator = atom {('*' | '/') atom};
@@ -22,6 +24,8 @@ expression = addsub_operator | atom;
 
 variable_definition = 'let' identifier '=' expression;
 
-function_definition = 'fun' identifier '(' {identifier identifier {',' identifier identifier}*} ')' {expression | definition}+ ';';
+# Use "(identifier | type identifier)" instead of "[type] identifier" as latter confuses parser.
+# TODO: Investigate why
+function_definition = 'fun' (identifier | type identifier) '(' [type identifier {',' type identifier}*] ')' {expression | definition}+ ';';
 
 definition = variable_definition | function_definition;
