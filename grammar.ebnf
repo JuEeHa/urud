@@ -1,5 +1,7 @@
 @@grammar :: Urud
 
+@@eol_comments :: /#.*?$/
+
 @@keyword :: let fun
 
 start = {definition}* $;

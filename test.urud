@@ -16,4 +16,6 @@ let bar = foofun(foo, -4)
 
 let foostring = 'Hello world!'
 let barstring = '  hi?'
+#Comment
+let bazstring = '#Not comment'
 let quxstring = '\'recursion\''
