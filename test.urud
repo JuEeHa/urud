@@ -1,5 +1,7 @@
-fun foofun()
-	fun barfun() 4;
-	let foovar = barfun();
+fun foofun(int a, int b)
+	fun barfun(int x) 4 + x;
+	let foovar = barfun(a)
+	foovar * b;
 
 let foo = 3 - 2 * (1 + 1) / 4 + 6
+let bar = foofun(foo, -4)

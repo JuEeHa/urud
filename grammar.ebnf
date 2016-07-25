@@ -11,7 +11,7 @@ literal = integer_literal | string_literal;
 integer_literal = /[-+]?[\d]+/;
 string_literal = "'" /([^']|\.)*/ "'";
 
-function_call = atom '(' {{expression ','}* expression} ')';
+function_call = atom '(' {expression {',' expression}*} ')';
 
 addsub_operator = muldiv_operator {('+' | '-') muldiv_operator};
 muldiv_operator = atom {('*' | '/') atom};
@@ -22,6 +22,6 @@ expression = addsub_operator | atom;
 
 variable_definition = 'let' identifier '=' expression;
 
-function_definition = 'fun' identifier '(' {{identifier identifier ','} identifier identifier} ')' {expression | definition}+ ';';
+function_definition = 'fun' identifier '(' {identifier identifier {',' identifier identifier}*} ')' {expression | definition}+ ';';
 
 definition = variable_definition | function_definition;
