@@ -28,4 +28,6 @@ variable_definition = 'let' identifier '=' expression;
 # TODO: Investigate why
 function_definition = 'fun' (identifier | type identifier) '(' [type identifier {',' type identifier}*] ')' {expression | definition}+ ';';
 
-definition = variable_definition | function_definition;
+interface_definition = 'interface' type identifier '(' [type {',' type}*] ')';
+
+definition = variable_definition | function_definition | interface_definition;
