@@ -16,7 +16,7 @@ fun sum(*b[Collection]<*a[Number]> numbers)
 			let number = head(numbers)
 			let rest = tail(numbers)
 			sum_helper(rest, tally + number);;
-	sum_helper(numbers, 0);
+	sum_helper(numbers, <*a>(0));
 
 fun foofun(Int a, Int b)
 	fun barfun(Int x) 4 + x;
@@ -24,7 +24,7 @@ fun foofun(Int a, Int b)
 	foovar * b;
 
 fun average(*b[Collection]<*a[Number]> numbers)
-	sum(numbers) / length(numbers);
+	sum(numbers) / <*a>(length(numbers));
 
 let foo = 3 - 2 * (1 + 1) / 4 + 6
 let bar = foofun(foo, -4)

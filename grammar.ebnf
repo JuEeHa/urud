@@ -22,7 +22,7 @@ if_operator = 'if' expression 'then' {statement}* 'else' {statement}* ';';
 addsub_operator = muldiv_operator {('+' | '-') muldiv_operator}*;
 muldiv_operator = atom {('*' | '/') atom}*;
 
-atom = function_call | literal | identifier | '(' expression ')';
+atom = function_call | '<' type '>' '(' expression ')' | literal | identifier | '(' expression ')';
 
 expression = if_operator | addsub_operator | atom;
 
