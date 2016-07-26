@@ -9,7 +9,8 @@ start = {definition}* $;
 @name
 identifier = /(?!\d)\w+/;
 
-type = identifier '<' type {',' type}* '>' | type '[' identifier {',' identifier} ']' | '*' identifier | identifier;
+unbound_type = '*' identifier;
+type = type '<' type {',' type}* '>' | (identifier | unbound_type) '[' identifier {',' identifier} ']' | unbound_type | identifier;
 
 literal = integer_literal | string_literal;
 integer_literal = /[-+]?[\d]+/;
@@ -26,10 +27,9 @@ expression = addsub_operator | atom;
 
 variable_definition = 'let' identifier '=' expression;
 
-# Use "(identifier | type identifier)" instead of "[type] identifier" as latter confuses parser.
-# TODO: Investigate why
-function_definition = 'fun' (identifier | type identifier) '(' [type identifier {',' type identifier}*] ')' {expression | definition}+ ';';
+function_definition = 'fun' identifier '(' [type identifier {',' type identifier}*] ')' {expression | definition}* ';';
+function_prototype = type identifier '(' [type {',' type}*] ')';
 
-interface_definition = 'interface' type identifier '(' [type {',' type}*] ')';
+interface_definition = 'interface' identifier unbound_type {function_prototype}* ';';
 
 definition = variable_definition | function_definition | interface_definition;
