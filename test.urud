@@ -4,7 +4,19 @@ interface Summable *a
 interface Collection *a
 	*b head(*a<*b>)
 	*a<*b> tail(*a<*b>)
+	Bool empty(*a<*b>)
 	Int length(*a<*b>);
+
+# Implement interface Summable for types implementing interface Number
+fun sum(*b[Collection]<*a[Number]> numbers)
+	fun sum_helper(*b<*a> numbers, *a tally)
+		if empty(numbers) then
+			tally
+		else
+			let number = head(numbers)
+			let rest = tail(numbers)
+			sum_helper(rest, tally + number);;
+	sum_helper(numbers, 0);
 
 fun foofun(Int a, Int b)
 	fun barfun(Int x) 4 + x;

@@ -2,7 +2,7 @@
 
 @@eol_comments :: /#.*?$/
 
-@@keyword :: let fun
+@@keyword :: let fun interface if then else
 
 start = {definition}* $;
 
@@ -18,16 +18,19 @@ string_literal = "'" /([^'\\]|\\.)*/ "'";
 
 function_call = atom '(' [expression {',' expression}*] ')';
 
-addsub_operator = muldiv_operator {('+' | '-') muldiv_operator};
-muldiv_operator = atom {('*' | '/') atom};
+if_operator = 'if' expression 'then' {statement}* 'else' {statement}* ';';
+addsub_operator = muldiv_operator {('+' | '-') muldiv_operator}*;
+muldiv_operator = atom {('*' | '/') atom}*;
 
 atom = function_call | literal | identifier | '(' expression ')';
 
-expression = addsub_operator | atom;
+expression = if_operator | addsub_operator | atom;
+
+statement = expression | definition;
 
 variable_definition = 'let' identifier '=' expression;
 
-function_definition = 'fun' identifier '(' [type identifier {',' type identifier}*] ')' {expression | definition}* ';';
+function_definition = 'fun' identifier '(' [type identifier {',' type identifier}*] ')' {statement}* ';';
 function_prototype = type identifier '(' [type {',' type}*] ')';
 
 interface_definition = 'interface' identifier unbound_type {function_prototype}* ';';
